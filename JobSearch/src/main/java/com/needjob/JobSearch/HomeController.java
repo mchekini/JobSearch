@@ -1,15 +1,29 @@
 package com.needjob.JobSearch;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.needjob.dao.AnnonceDao;
+import com.needjob.dao.AnnonceDaoImplementation;
+import com.needjob.model.Annonce;
+import com.needjob.model.User;
+
+import com.needjob.*;
 
 /**
  * Handles requests for the application home page.
@@ -23,17 +37,30 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+	public String home(Locale locale, Model model) { 
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
+		 
+			
+		 
 		return "home";
+		
+		
+	}
+	
+	
+	@RequestMapping(value = "/Authentification", method = RequestMethod.POST)
+	public String Authentification(HttpSession session,Locale locale, Model model, String login, String password) throws NoSuchAlgorithmException { 
+		
+		 com.needjob.traitements.Authentification auth = new com.needjob.traitements.Authentification();
+		 if (auth.verif_authentification(login, password))
+			 {
+			 session.setAttribute("login", login);
+			 model.addAttribute("nom", login);
+			 return "espacemembre";
+			 }
+		 else	return "home";
+		
+		
 	}
 	
 }
