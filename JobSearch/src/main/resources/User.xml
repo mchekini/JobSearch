@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 5.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-5.0.dtd">
+<hibernate-mapping>
+  <class  name="com.needjob.model.User" table="utilisateur">
+      <id name="id" type="int" column="id_user">
+          <generator class="native"/>
+      </id>
+      <property name="nom" column="nom_user" type="string"/>
+      <property name="prenom" column="prenom_user" type="string"/>
+      <property name="pseudo" column="pseudo_user" type="string"/>
+      <property name="password" column="password_user" type="string"/>
+      <property name="type" column="type_user" type="string"/>
+      
+  </class>
+</hibernate-mapping>
+
+
+
+
