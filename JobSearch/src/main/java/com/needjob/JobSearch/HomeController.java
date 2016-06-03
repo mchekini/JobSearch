@@ -2,6 +2,7 @@ package com.needjob.JobSearch;
 
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -70,6 +71,32 @@ public class HomeController {
 		 
 		 
 		return "home";
+		
+	}
+	
+	@RequestMapping(value = "/Offres", method = RequestMethod.POST)
+	public String Get_offers(HttpSession session,Locale locale, Model model, String login, String password) throws NoSuchAlgorithmException { 
+		
+		
+		 AnnonceDao annonces = new AnnonceDaoImplementation();
+		 
+		 List<Annonce> maliste2 = annonces.getAllAnnonces();
+		 
+		 for (Annonce annonce:maliste2)
+		 {
+			 System.out.println(annonce);
+		 }
+		 List<String> maliste = new ArrayList<String>();
+		 maliste.add("'mehdi'");
+		 maliste.add("'massine'");
+		 maliste.add("'farid'");
+		 
+		 
+		 model.addAttribute("listeoffres", maliste);
+		 
+		 
+		 
+		return "consultant";
 		
 	}
 	
