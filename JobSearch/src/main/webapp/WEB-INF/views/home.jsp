@@ -17,7 +17,8 @@
                 <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
                     alt="">
                 <form class="form-signin" action="Authentification" method="post">
-                <input name="login" type="text" class="form-control" placeholder="Login" required autofocus>
+                <input name="login" type="text" class="form-control" placeholder="Pseudo" required autofocus>
+                <p></p>
                 <input name="password" type="password" class="form-control" placeholder="Password" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">
                     Sign in</button>
@@ -26,6 +27,8 @@
                     Remember me
                 </label>
                 <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+                
+                <div id="errormessage">${erreur }</div>
                 </form>
             </div>
             <a href="#" class="text-center new-account">Create an account </a>

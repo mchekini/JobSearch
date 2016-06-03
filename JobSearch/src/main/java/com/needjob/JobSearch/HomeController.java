@@ -52,14 +52,24 @@ public class HomeController {
 	public String Authentification(HttpSession session,Locale locale, Model model, String login, String password) throws NoSuchAlgorithmException { 
 		
 		 com.needjob.traitements.Authentification auth = new com.needjob.traitements.Authentification();
-		 if (auth.verif_authentification(login, password))
-			 {
-			 session.setAttribute("login", login);
-			 model.addAttribute("nom", login);
-			 return "espacemembre";
-			 }
-		 else	return "home";
-		
+		 
+		 User user = auth.verif_authentification(login, password);
+		 if (user==null)
+		 {
+			 model.addAttribute("erreur", "Login ou mot de passe incorrect");
+			 return "home";
+		 }
+		 else
+		 {
+			 model.addAttribute("login", user.getPseudo());
+			 String type = user.getType();
+			 if (type.equals("Annonceur")) return "annonceur";
+			 else if (type.equals("Consultant")) return "consultant";
+		 }
+		 
+		 
+		 
+		return "home";
 		
 	}
 	

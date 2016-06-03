@@ -2,6 +2,11 @@ package com.needjob.traitements;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.needjob.JobSearch.HibernateUtil;
 import com.needjob.dao.*;
 import com.needjob.model.User;
 import java.security.MessageDigest;
@@ -11,9 +16,9 @@ public class Authentification {
 	
 	
 	
-	public boolean verif_authentification(String login, String password) throws NoSuchAlgorithmException
+	public User verif_authentification(String login, String password) throws NoSuchAlgorithmException
 	{
-		boolean correct = false;
+		User user = null;
 		MessageDigest md = MessageDigest.getInstance("MD5");
         md.update(password.getBytes());
         
@@ -27,18 +32,30 @@ public class Authentification {
         String hash=sb.toString();
         
         
-		List<User> maliste = new UserDaoImplementation().getAllUsers();
+        
+        
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tr = null;
 		
-		for (User u:maliste)
+		try
 		{
-			if (u.getPseudo().equals(login))
-			{
-				if (u.getPassword().equals(hash)) correct = true;
-			}
+			tr = session.beginTransaction();
+			
+			List<User> maliste =  session.createQuery("from User u where u.pseudo='"+login+"' and u.password='"+hash+"'").list();
+			
+			if (!maliste.isEmpty()) user=maliste.get(0);
+			
+		}
+		catch (HibernateException e)
+		{
+		}
+		finally
+		{
+			session.close();
 		}
 		
 		
-		return correct;
+		return user;
 	}
 
 }
