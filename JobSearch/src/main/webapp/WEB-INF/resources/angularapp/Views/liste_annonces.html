@@ -1,9 +1,41 @@
-<div>
 
-<div ng-repeat='ann in annonces'>
 
-<p >id annonce = {{ann.id}} , titre du poste = {{ann.titre}} , description = {{ann.description}}</p>
+
+
+<div class="container">
+    <div class="row">
+		<div class="well">
+        <h1 class="text-center">Liste des offres</h1>
+        <div class="list-group">
+        <div ng-repeat='ann in annonces'>
+          <a href="#" class="list-group-item active">
+                <div class="media col-md-3">
+                    <figure class="pull-left">
+                        <img class="media-object img-rounded img-responsive"  src="http://placehold.it/350x250" alt="placehold.it/350x250" >
+                    </figure>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="list-group-item-heading"> {{ann.titre}} </h4>
+                    <br />
+                    <p class="list-group-item-text">{{ann.description}}                   </p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <h2> 37 <small> Consultations </small></h2>
+                    <button type="button" class="btn btn-default btn-lg btn-block"> Postuler </button>
+                    <div class="stars">
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                    </div>
+                    <p> Pertinence :  4.5 <small> / </small> 5 </p>
+                </div>
+          </a>
+          <br />
+          </div>
+        </div>
+        </div>
+	</div>
 </div>
 
-
-</div>

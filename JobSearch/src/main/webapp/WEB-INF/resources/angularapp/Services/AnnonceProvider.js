@@ -6,7 +6,7 @@
 
 app.service('annonceprovider',function($http)
 		{
-	this.getannonces = function ()
+	this.getannonces = function (cb)
 	{
 		$http.get("Offres").
 	    success(function(data) {
@@ -15,6 +15,5 @@ app.service('annonceprovider',function($http)
 	      error(function(response) {
 	        alert("error");
 	      });
-		alert("test");
 	}
 		});
