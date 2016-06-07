@@ -1,5 +1,6 @@
 package com.needjob.JobSearch;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -9,6 +10,9 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -18,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.needjob.dao.AnnonceDao;
 import com.needjob.dao.AnnonceDaoImplementation;
@@ -39,13 +44,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) { 
-		
-		 
-			
-		 
-		return "home";
-		
-		
+		return "index";		
 	}
 	
 	
@@ -74,29 +73,14 @@ public class HomeController {
 		
 	}
 	
-	@RequestMapping(value = "/Offres", method = RequestMethod.POST)
-	public String Get_offers(HttpSession session,Locale locale, Model model, String login, String password) throws NoSuchAlgorithmException { 
+	@RequestMapping(value = "/Offres", method = RequestMethod.GET)
+	public @ResponseBody List<Annonce> Get_offers() throws NoSuchAlgorithmException, JsonGenerationException, JsonMappingException, IOException { 
 		
 		
-		 AnnonceDao annonces = new AnnonceDaoImplementation();
-		 
-		 List<Annonce> maliste2 = annonces.getAllAnnonces();
-		 
-		 for (Annonce annonce:maliste2)
-		 {
-			 System.out.println(annonce);
-		 }
-		 List<String> maliste = new ArrayList<String>();
-		 maliste.add("'mehdi'");
-		 maliste.add("'massine'");
-		 maliste.add("'farid'");
-		 
-		 
-		 model.addAttribute("listeoffres", maliste);
-		 
-		 
-		 
-		return "consultant";
+		 System.out.println("requete recu");
+		 AnnonceDao annonces = new AnnonceDaoImplementation();		 
+		 List<Annonce> liste_annonces = annonces.getAllAnnonces();
+         return liste_annonces;
 		
 	}
 	
